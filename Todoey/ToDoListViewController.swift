@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
 
-    let itemArray = ["Find milk", "Buy eggs", "buy bread"]
+    var itemArray = ["Find milk", "Buy eggs", "buy bread"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,25 @@ class ToDoListViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var localTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Todoey item", message: "", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen once user clicks add item button on UIAlert
+            
+            self.itemArray.append(localTextField.text!)
+            self.tableView.reloadData()
+            
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "create new item"
+            localTextField = alertTextField
+        }
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
     /*
     // Override to support conditional editing of the table view.
